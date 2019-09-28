@@ -6,6 +6,7 @@ import FirebaseService from '../../gamedata/firebase/firebase.service';
 
 class EndScreen extends Component {
   firebase;
+  loading = false;
   constructor() {
     super();
     this.firebase = FirebaseService();
@@ -27,7 +28,8 @@ class EndScreen extends Component {
   }
 
   getUserData = () => {
-   this.setState({...this.state,loading:true})
+   this.loading = true;
+   
     this.firebase
       .database()
       .ref('/players')
@@ -36,9 +38,9 @@ class EndScreen extends Component {
         let playerList = snapshot.val();
         if (playerList){
           playerList.sort((a, b) =>  b.player.score - a.player.score );
+          this.loading = false;
           this.setState({...this.state, players: playerList});
-        } 
-        this.setState({...this.state,loading:false})
+        }
       });
   };
 
@@ -63,13 +65,19 @@ class EndScreen extends Component {
       return <Redirect to='/game'></Redirect>;
     }
     return (
-      <div className='EndScreen'>
-            { this.state.loading ? 
-            <div className="spinner-border" role="status">
-                <span className="sr-only">Loading...</span>
-            </div> 
+      <div className='EndScreen center_div'>
+        <div className="page-header text-center">
+          <h1>Leaderboard </h1>  
+          <br/>    
+        </div>
+            { this.loading ? 
+          <div class="d-flex justify-content-center">
+            <div class="spinner-border" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
            : 
-             <table className='table table-dark'>
+             <table className='table table-dark text-centered mx-auto leaderboard-table'>
                 <thead>
                   <tr>
                     <th scope='col'>Rank</th>
@@ -92,11 +100,15 @@ class EndScreen extends Component {
                 </tbody>
               </table>
             }
-         <Button variant="contained" color="primary" onClick={this.share.bind(this)} className="btn btn-info">
+            <br/>
+      <div class="col text-center">
+        <Button onClick={this.playAgain.bind(this)} className="btn-space btn-lg">Play again</Button>
+         <Button variant="contained" color="primary" onClick={this.share.bind(this)} className="btn-lg btn-info btn-space ">
                 Share
          </Button>
+      </div>
 
-        <Button onClick={this.playAgain.bind(this)}>Play again</Button>
+       
       </div>
     );
   }

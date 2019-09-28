@@ -1,8 +1,21 @@
 .EndScreen {
   margin: 2rem;
+  color: #f4d43c;	
 }
 
 .row-selected {
     background-color: #242323 !important;
     font-weight: bold;
+}
+
+.btn-space {
+	margin-right: 5px;
+}
+
+.table-dark {
+    color: #f4d43c;
+    background-color: #343a40;
+}
+.leaderboard-table {
+	width: 65%;
 }
