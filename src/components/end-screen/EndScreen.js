@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
+import './EndScreen.css';
 import FirebaseService from '../../gamedata/firebase/firebase.service';
 
 class EndScreen extends Component {
@@ -64,21 +65,20 @@ class EndScreen extends Component {
                 <span className="sr-only">Loading...</span>
             </div> 
             </React.Fragment>: 
-             <table className='table table-striped table-dark'>
+             <table className='table table-dark'>
                 <thead>
                   <tr>
                     <th scope='col'>Player</th>
                     <th scope='col'>Score</th>
-                    <th scope='col'>Level</th>
                   </tr>
                 </thead>
                 <tbody>
                   {this.state.players.map(row => {
                     return (
-                      <tr key={row.player}>
+                      <tr className={ row.player.username === this.state.username ? 'row-selected' : ''} 
+                          key={row.player.username}>
                         <td>{row.player.username}</td>
                         <td>{row.player.score}</td>
-                        <td>10</td>
                       </tr>
                     );
                   })}
