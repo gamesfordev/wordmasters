@@ -1,0 +1,8 @@
+.game-box {
+    width: 400px;
+    height: 400px;
+}
+
+.game-box .box-item {
+    display: inline-block;
+}
