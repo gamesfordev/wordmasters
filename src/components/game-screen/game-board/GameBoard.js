@@ -3,6 +3,7 @@ import  { Redirect } from 'react-router-dom'
 import './GameBoard.css'
 import BoardItem from './board-item/BoardItem';
 import Words from '../../../gamedata/words'
+import GameSound from './game-sound/GameSound';
 
 
 class GameBoard extends Component {
@@ -51,6 +52,7 @@ class GameBoard extends Component {
                 this.score += this.currentCorrectWord.length;
                 this.props.updateScore(this.score);
                 setTimeout(() => {this.nextChallenge()}, 500);
+                this.playEffect('correct-sound');
                 return;
             }
         }
@@ -59,6 +61,7 @@ class GameBoard extends Component {
                 setTimeout(() => {this.nextChallenge()}, 500);
                 this.score -= 1;
                 this.props.updateScore(this.score);
+                this.playEffect('missed-sound');
             }
             else {
                 this.running = false;
@@ -134,11 +137,20 @@ class GameBoard extends Component {
 
     }
 
+    playEffect(effect) {
+        if (this.child) this.child.playEffect(effect);
+    }
+
     render() {
         if(!this.running) {
             return <Redirect to="/end"></Redirect>;
         }
         return <div className='game-box'> 
+                <GameSound
+                ref={instance => {
+                    this.child = instance;
+                }}
+                />
                 {
                     this.state.items.map((elem) => {
                         return <BoardItem width={elem.width} letter={elem.letter} key={Math.random()} pressed={elem.pressed}/>
