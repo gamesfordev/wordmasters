@@ -4,6 +4,7 @@ import './GameBoard.css'
 import BoardItem from './board-item/BoardItem';
 import Words from '../../../gamedata/words'
 import GameSound from './game-sound/GameSound';
+import FirebaseService from '../../../gamedata/firebase/firebase.service';
 
 
 class GameBoard extends Component {
@@ -15,9 +16,12 @@ class GameBoard extends Component {
     score = 0;
     time = 120;
     running = true;
+    firebase;
+    
 
     constructor() {
         super();
+        this.firebase = FirebaseService();
         this.state = {
             items: []
         };
@@ -140,9 +144,35 @@ class GameBoard extends Component {
     playEffect(effect) {
         if (this.child) this.child.playEffect(effect);
     }
+    writeUserData = (id, playerObj) => {
+        this.firebase
+          .database()
+          .ref(id)
+          .set(playerObj);
+      };
+    
+      updateUserData = () => {
+        this.firebase
+          .database()
+          .ref('/players')
+          .once('value')
+          .then(snapshot => {
+            let players = snapshot.val(); 
+            if (players){
+                players.map((element, i) =>{
+                    if(element.player.username== localStorage.getItem('username')){
+                        let player = element.player;
+                        player.score = this.score;
+                        this.writeUserData(`/players/${i}/`, {player})
+                    }
+                });
+            }
+          });
+      };
 
     render() {
         if(!this.running) {
+            this.updateUserData();
             return <Redirect to="/end"></Redirect>;
         }
         return <div className='game-box'> 

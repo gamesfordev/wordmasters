@@ -1,12 +1,12 @@
 import React from 'react';
-import Firebase from 'firebase';
-import config from '../../config';
 import { Redirect } from 'react-router';
+import FirebaseService from '../../gamedata/firebase/firebase.service';
 
 class StartScreen extends React.Component {
+  firebase;
   constructor(props) {
     super(props);
-    Firebase.initializeApp(config);
+    this.firebase = FirebaseService();
 
     this.state = { players: [] };
   }
@@ -23,20 +23,23 @@ class StartScreen extends React.Component {
   }
 
   removeData = () => {
-    Firebase.database()
+    this.firebase
+      .database()
       .ref('/')
       .set({});
   };
 
   writeUserData = () => {
-    Firebase.database()
+    this.firebase
+      .database()
       .ref('/')
       .set(this.state);
     console.log('write');
   };
 
   getUserData = () => {
-    Firebase.database()
+    this.firebase
+      .database()
       .ref('/')
       .once('value')
       .then(snapshot => {
