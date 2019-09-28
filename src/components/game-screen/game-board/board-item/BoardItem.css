@@ -1,8 +1,9 @@
 .box-item {
     display: inline-block;
     text-align: center;
-    background-color: lightsalmon;
-    border: 1px black solid;
+    background-color: #2A1B18;
+    border: 1px #f4d43c solid;
+    color: white;
 }
 
 .box-item span {
@@ -11,4 +12,5 @@
     position: relative;
     font-weight: bold;
     padding: 25%;
+    text-shadow: 0px 0px 8px rgba(0,0,0,0.7);
 }
