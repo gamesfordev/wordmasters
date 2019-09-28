@@ -1,0 +1,13 @@
+.box-item {
+    display: inline-block;
+    text-align: center;
+    background-color: lightsalmon;
+    border: 1px black solid;
+}
+
+.box-item span {
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    font-weight: bold;
+}

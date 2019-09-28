@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import './GameBoard.css'
+import BoardItem from './board-item/BoardItem';
 
 
 class GameBoard extends Component {
@@ -16,10 +17,24 @@ class GameBoard extends Component {
 
     componentDidMount() {
         this.startGame();
+        window.onkeydown = this.handleKeyPress.bind(this);
     }
 
     getRandomNumber(limit) {
         return parseInt((Math.random() * 100000) % limit);
+    }
+
+    handleKeyPress(event) {
+        if (event.keyCode >= 65 && event.keyCode <= 90) {
+            let letter = event.key.toUpperCase();
+            let index = this.state.items.findIndex(e => (e.letter == letter && !e.pressed));
+            if(index != -1) {
+                this.items[index].pressed = true;
+                this.setState({
+                    items: this.items
+                });
+            }
+        }
     }
 
     startGame() {
@@ -76,8 +91,7 @@ class GameBoard extends Component {
         return <div className='game-box'> 
                 {
                     this.state.items.map((elem) => {
-                        let style = {width: elem.width + '%'};
-                        return <div className="box-item" style={style}>{elem.letter}</div>;
+                        return <BoardItem width={elem.width} letter={elem.letter} key={Math.random()} pressed={elem.pressed}/>
                     })
                 }
         </div>;

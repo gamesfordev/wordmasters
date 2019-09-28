@@ -1,11 +1,10 @@
 import React from 'react';
 import GameBoard from './game-board/GameBoard';
+import './GameScreen.css';
 
 function GameScreen() {
   return (
     <div className="GameScreen">
-        Game Screen
-
         <GameBoard></GameBoard>
     </div>
   );
