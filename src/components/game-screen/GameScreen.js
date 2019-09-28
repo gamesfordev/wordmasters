@@ -3,6 +3,7 @@ import GameBoard from './game-board/GameBoard';
 import './GameScreen.css';
 import LeftPanel from './left-panel/LeftPanel';
 import RightPanel from './right-panel/RightPanel';
+import Logo from '../../gamedata/images/logo-game.png';
 
 class GameScreen extends Component {
 
@@ -34,6 +35,7 @@ class GameScreen extends Component {
   render() {
     return (
       <div className="GameScreen">
+          <img src={Logo} className="logo-game"/>
           <LeftPanel time={this.state.time}></LeftPanel>
           <RightPanel score={this.state.score}></RightPanel>
           <GameBoard updateTime={this.updateTime.bind(this)} updateScore={this.updateScore.bind(this)}></GameBoard>

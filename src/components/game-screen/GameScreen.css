@@ -1,3 +1,11 @@
 .GameScreen {
     height: 100%;
 }
+
+.logo-game {
+    width: 300px;
+    position: fixed;
+    left: 50%;
+    margin-left: -150px;
+    margin-top: 24px;
+}
