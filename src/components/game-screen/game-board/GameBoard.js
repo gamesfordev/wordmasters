@@ -10,7 +10,8 @@ class GameBoard extends Component {
     items;
     currentWord = "";
     currentCorrectWord = "";
-    score;
+    score = 0;
+    time = 60;
 
     constructor() {
         super();
@@ -22,6 +23,10 @@ class GameBoard extends Component {
     componentDidMount() {
         this.startGame();
         window.onkeydown = this.handleKeyPress.bind(this);
+    }
+
+    componentWillUnmount() {
+        this.endGame();
     }
 
     getRandomNumber(limit) {
@@ -41,6 +46,8 @@ class GameBoard extends Component {
             }
             console.log(this.currentCorrectWord, this.currentWord);
             if(this.currentWord == this.currentCorrectWord) {
+                this.score ++;
+                this.props.updateScore(this.score);
                 setTimeout(() => {this.nextChallenge()}, 500);
                 return;
             }
@@ -48,11 +55,16 @@ class GameBoard extends Component {
     }
 
     startGame() {
-        this.mainLoop = setInterval(this.gameTick, 1000);
+        this.mainLoop = setInterval(() => {this.gameTick()}, 1000);
         this.nextChallenge();
     }
 
+    endGame() {
+        clearInterval(this.mainLoop);
+    }
+
     nextChallenge() {
+        this.currentWord = "";
         this.currentCorrectWord = Words[this.getRandomNumber(Words.length)];
         this.items = this.createBoard(10, this.currentCorrectWord);
         this.setState({
@@ -62,6 +74,8 @@ class GameBoard extends Component {
 
     gameTick() {
         console.log('Tick');
+        this.time --;
+        this.props.updateTime(this.time);
     }
 
     createBoard(N, word) {
