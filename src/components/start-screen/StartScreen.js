@@ -2,6 +2,7 @@ import React from 'react';
 import { Redirect } from 'react-router';
 import FirebaseService from '../../gamedata/firebase/firebase.service';
 import './StartScreen.css';
+import Logo from '../../gamedata/images/logo-game.png';
 
 class StartScreen extends React.Component {
   firebase;
@@ -78,29 +79,30 @@ class StartScreen extends React.Component {
       return <Redirect to={'/game/'} />;
     }
     return (
-      <div className='StartScreen container center_div' >
+      <div className='StartScreen center_div' >
         <div className="master">
 			<div className="login_box">
-				<div className="name">
-					<form onSubmit={this.handleSubmit} className="loginForm">
-						<div className='form-group"'>
-							<div className='form-group col-md-6'>
-							<label className="col-md-4 text-center">Enter Username</label>
-							<input
-								type='text'
-								ref='username'
-								className='form-control'
-								placeholder='Username'
-							/>
+			<img src={Logo} className="login_box logo"/>
+					<div className="name">
+						<form onSubmit={this.handleSubmit} className="loginForm">
+							<div className='form-group"'>
+								<div className='form-group'>
+								<label className="col-md-10 text-center">Enter Username</label>
+								<input
+									type='text'
+									ref='username'
+									className='form-control'
+									placeholder='Username'
+								/>
+								</div>
 							</div>
-						</div>
-						<div className="col-md-4 text-center"> 
-							<button type='submit' className='btn btn-primary'>
-								Play
-							</button>
-						</div> 
-					</form>
-				</div>
+							<div className="col-md-12 text-center"> 
+								<button type='submit' className='btn btn-primary'>
+									Play
+								</button>
+							</div> 
+						</form>
+					</div>
 			</div>
 		</div>
       </div>
