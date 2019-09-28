@@ -12,7 +12,7 @@ class GameBoard extends Component {
     currentWord = "";
     currentCorrectWord = "";
     score = 0;
-    time = 10;
+    time = 120;
     running = true;
 
     constructor() {
