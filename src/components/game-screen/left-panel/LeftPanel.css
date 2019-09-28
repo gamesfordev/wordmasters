@@ -3,3 +3,11 @@
     left: 12px;
     top: 12px;
 }
+
+.left-panel .label {
+    font-size: 20px;
+}
+
+.left-panel .value {
+    font-size: 32px;
+}

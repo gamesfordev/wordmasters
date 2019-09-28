@@ -3,3 +3,13 @@
     right: 12px;
     top: 12px;
 }
+
+.right-panel .label {
+    font-size: 20px;
+    text-align: right;
+}
+
+.right-panel .value {
+    font-size: 32px;
+    text-align: right;
+}

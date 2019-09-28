@@ -10,8 +10,8 @@ class RightPanel extends Component {
 
     render() {
         return <div className="right-panel">
-            <div>Score</div>
-            <div>{this.props.score} pts</div>
+            <div className="label">Score</div>
+            <div className="value">{this.props.score}</div>
         </div>;
     }
 }

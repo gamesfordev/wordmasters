@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import  { Redirect } from 'react-router-dom'
 import './GameBoard.css'
 import BoardItem from './board-item/BoardItem';
 import Words from '../../../gamedata/words'
@@ -11,7 +12,8 @@ class GameBoard extends Component {
     currentWord = "";
     currentCorrectWord = "";
     score = 0;
-    time = 60;
+    time = 10;
+    running = true;
 
     constructor() {
         super();
@@ -61,6 +63,9 @@ class GameBoard extends Component {
 
     endGame() {
         clearInterval(this.mainLoop);
+        localStorage.setItem('game_data', JSON.stringify({
+            score: this.score
+        }));
     }
 
     nextChallenge() {
@@ -76,6 +81,9 @@ class GameBoard extends Component {
         console.log('Tick');
         this.time --;
         this.props.updateTime(this.time);
+        if(this.time == 0) {
+            this.running = false;
+        }
     }
 
     createBoard(N, word) {
@@ -117,6 +125,9 @@ class GameBoard extends Component {
     }
 
     render() {
+        if(!this.running) {
+            return <Redirect to="/end"></Redirect>;
+        }
         return <div className='game-box'> 
                 {
                     this.state.items.map((elem) => {
