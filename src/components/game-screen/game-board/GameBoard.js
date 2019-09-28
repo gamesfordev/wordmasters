@@ -46,7 +46,7 @@ class GameBoard extends Component {
                 });
                 this.currentWord += letter;
             }
-            console.log(this.currentCorrectWord, this.currentWord);
+
             if(this.currentWord == this.currentCorrectWord) {
                 this.score += this.currentCorrectWord.length;
                 this.props.updateScore(this.score);
@@ -89,7 +89,6 @@ class GameBoard extends Component {
     }
 
     gameTick() {
-        console.log('Tick');
         this.time --;
         this.props.updateTime(this.time);
         if(this.time == 0) {
