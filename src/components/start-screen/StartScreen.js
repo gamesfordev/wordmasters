@@ -1,6 +1,7 @@
 import React from 'react';
 import Firebase from 'firebase';
 import config from '../../config';
+import { Redirect } from 'react-router';
 
 class StartScreen extends React.Component {
   constructor(props) {
@@ -59,6 +60,8 @@ class StartScreen extends React.Component {
       this.setState({
         players
       });
+      this.redirect = true;
+      localStorage.setItem('username', username);
 
       //   this.setState(...this.state, players);
       //   this.setState({ player: { score: 0, username } });
@@ -69,7 +72,9 @@ class StartScreen extends React.Component {
   };
 
   render() {
-    const { developers } = this.state;
+    if (this.redirect) {
+      return <Redirect to={'/game/'} />;
+    }
     return (
       <div className='StartScreen'>
         Start Screen
