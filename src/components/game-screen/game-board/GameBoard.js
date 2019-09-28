@@ -1,12 +1,16 @@
 import React, { Component } from 'react'
 import './GameBoard.css'
 import BoardItem from './board-item/BoardItem';
+import Words from '../../../gamedata/words'
 
 
 class GameBoard extends Component {
 
     mainLoop;
     items;
+    currentWord = "";
+    currentCorrectWord = "";
+    score;
 
     constructor() {
         super();
@@ -33,13 +37,24 @@ class GameBoard extends Component {
                 this.setState({
                     items: this.items
                 });
+                this.currentWord += letter;
+            }
+            console.log(this.currentCorrectWord, this.currentWord);
+            if(this.currentWord == this.currentCorrectWord) {
+                setTimeout(() => {this.nextChallenge()}, 500);
+                return;
             }
         }
     }
 
     startGame() {
         this.mainLoop = setInterval(this.gameTick, 1000);
-        this.items = this.createBoard(10, 'LEGEND');
+        this.nextChallenge();
+    }
+
+    nextChallenge() {
+        this.currentCorrectWord = Words[this.getRandomNumber(Words.length)];
+        this.items = this.createBoard(10, this.currentCorrectWord);
         this.setState({
             items : this.items
         });
