@@ -48,10 +48,20 @@ class GameBoard extends Component {
             }
             console.log(this.currentCorrectWord, this.currentWord);
             if(this.currentWord == this.currentCorrectWord) {
-                this.score ++;
+                this.score += this.currentCorrectWord.length;
                 this.props.updateScore(this.score);
                 setTimeout(() => {this.nextChallenge()}, 500);
                 return;
+            }
+        }
+        else if(event.code == "Space") {
+            if(this.score - 1 >= 0) {
+                setTimeout(() => {this.nextChallenge()}, 500);
+                this.score -= 1;
+                this.props.updateScore(this.score);
+            }
+            else {
+                this.running = false;
             }
         }
     }
@@ -69,9 +79,10 @@ class GameBoard extends Component {
     }
 
     nextChallenge() {
+        const grids = [8,9,10];
         this.currentWord = "";
         this.currentCorrectWord = Words[this.getRandomNumber(Words.length)];
-        this.items = this.createBoard(10, this.currentCorrectWord);
+        this.items = this.createBoard(grids[this.getRandomNumber(grids.length)], this.currentCorrectWord);
         this.setState({
             items : this.items
         });
@@ -91,7 +102,7 @@ class GameBoard extends Component {
         let letters = alphabet.split('').filter((e) => (word.indexOf(e) == -1));
         let B = [];
         let linearB = [];
-        const width = N / 100 * 100;
+        const width = 100 / N;
         // Fill random letters
         for (let i = 0; i < N; i++) {
             let b = [];
