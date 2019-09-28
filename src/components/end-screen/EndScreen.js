@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
+import './EndScreen.css';
 import FirebaseService from '../../gamedata/firebase/firebase.service';
 
 class EndScreen extends Component {
@@ -15,26 +16,29 @@ class EndScreen extends Component {
       rowsPerPage: 10,
       page: 0,
       again: false,
-      loading:false
+      loading:false,
+      url:""
     };
   }
 
   componentDidMount() {
     this.getUserData();
+    this.setState({...this.state,url: window.location.href});
   }
 
   getUserData = () => {
    this.setState({...this.state,loading:true})
     this.firebase
       .database()
-      .ref('/')
+      .ref('/players')
       .once('value')
       .then(snapshot => {
-        console.log('getUserData', snapshot.val());
-        if (snapshot.val()) this.setState({ players: snapshot.val().players });
-        console.log(this.state);
+        let playerList = snapshot.val();
+        if (playerList){
+          playerList.sort((a, b) =>  b.player.score - a.player.score );
+          this.setState({...this.state, players: playerList});
+        } 
         this.setState({...this.state,loading:false})
-        console.log(this.state.loading);
       });
   };
 
@@ -45,8 +49,10 @@ class EndScreen extends Component {
   }
 
   share() {
+    console.log(this.state.url);
+    
     window.open(
-      `https://www.facebook.com/sharer/sharer.php?u=${this.url}`,
+      `https://www.facebook.com/sharer/sharer.php?u=${this.state.url}`,
       'pop',
       'width=600, height=400, scrollbars=no'
     );
@@ -59,33 +65,37 @@ class EndScreen extends Component {
     return (
       <div className='EndScreen'>
             { this.state.loading ? 
-            <React.Fragment>
             <div className="spinner-border" role="status">
                 <span className="sr-only">Loading...</span>
             </div> 
-            </React.Fragment>: 
-             <table className='table table-striped table-dark'>
+           : 
+             <table className='table table-dark'>
                 <thead>
                   <tr>
+                    <th scope='col'>Rank</th>
                     <th scope='col'>Player</th>
                     <th scope='col'>Score</th>
-                    <th scope='col'>Level</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {this.state.players.map(row => {
+                  {this.state.players.map((row, index) => {
                     return (
-                      <tr key={row.player}>
+
+                      <tr className={ row.player.username === this.state.username ? 'row-selected' : ''} 
+                          key={row.player.username}>
+                        <td>{index+1}</td>
                         <td>{row.player.username}</td>
                         <td>{row.player.score}</td>
-                        <td>10</td>
                       </tr>
                     );
                   })}
                 </tbody>
               </table>
             }
-       
+         <Button variant="contained" color="primary" onClick={this.share.bind(this)} className="btn btn-info">
+                Share
+         </Button>
+
         <Button onClick={this.playAgain.bind(this)}>Play again</Button>
       </div>
     );

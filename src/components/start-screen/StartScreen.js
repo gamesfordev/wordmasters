@@ -1,6 +1,7 @@
 import React from 'react';
 import { Redirect } from 'react-router';
 import FirebaseService from '../../gamedata/firebase/firebase.service';
+import './StartScreen.css';
 
 class StartScreen extends React.Component {
   firebase;
@@ -52,7 +53,6 @@ class StartScreen extends React.Component {
   handleSubmit = event => {
     event.preventDefault();
     let username = this.refs.username.value;
-    let uid = this.refs.uid.value;
 
     if (username) {
       console.log(this.state);
@@ -71,7 +71,6 @@ class StartScreen extends React.Component {
     }
 
     this.refs.username.value = '';
-    this.refs.uid.value = '';
   };
 
   render() {
@@ -79,25 +78,31 @@ class StartScreen extends React.Component {
       return <Redirect to={'/game/'} />;
     }
     return (
-      <div className='StartScreen'>
-        Start Screen
-        <form onSubmit={this.handleSubmit}>
-          <input type='hidden' ref='uid' />
-          <div className='form-group"'>
-            <div className='form-group col-md-6'>
-              <label>Username</label>
-              <input
-                type='text'
-                ref='username'
-                className='form-control'
-                placeholder='Username'
-              />
-            </div>
-          </div>
-          <button type='submit' className='btn btn-primary'>
-            Start
-          </button>
-        </form>
+      <div className='StartScreen container center_div' >
+        <div className="master">
+			<div className="login_box">
+				<div className="name">
+					<form onSubmit={this.handleSubmit} className="loginForm">
+						<div className='form-group"'>
+							<div className='form-group col-md-6'>
+							<label className="col-md-4 text-center">Enter Username</label>
+							<input
+								type='text'
+								ref='username'
+								className='form-control'
+								placeholder='Username'
+							/>
+							</div>
+						</div>
+						<div className="col-md-4 text-center"> 
+							<button type='submit' className='btn btn-primary'>
+								Play
+							</button>
+						</div> 
+					</form>
+				</div>
+			</div>
+		</div>
       </div>
     );
   }
