@@ -8,5 +8,20 @@ export default [
     "AZURE",
     "AMAZON",
     "STACK",
-    "FUNCTION"
+    "FUNCTION",
+    "JAVA",
+    "BACKEND",
+    "FRONTEND",
+    "CLASS",
+    "INTEGER",
+    "STRING",
+    "REDUX",
+    "STATE",
+    "THIS",
+    "WINDOW",
+    "DOCUMENT",
+    "DOM",
+    "THREAD",
+    "RETURN",
+    "IMPORT"
 ];

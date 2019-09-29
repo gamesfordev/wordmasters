@@ -88,7 +88,7 @@ class GameBoard extends Component {
     }
 
     nextChallenge() {
-        const grids = [8,9,10];
+        const grids = [8, 9, 10];
         this.currentWord = "";
         this.currentCorrectWord = Words[this.getRandomNumber(Words.length)];
         this.items = this.createBoard(grids[this.getRandomNumber(grids.length)], this.currentCorrectWord);
@@ -125,7 +125,7 @@ class GameBoard extends Component {
         }
 
         //Inject correct letters
-        let randomX = this.getRandomNumber(N - word.length);
+        let randomX = (N - word.length) == 0 ? 0 : this.getRandomNumber(N - word.length);
         let randomY = this.getRandomNumber(N);
         for (let i = 0; i < word.length; i++) {
             B[randomY][randomX + i] = {
