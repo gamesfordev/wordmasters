@@ -13,6 +13,24 @@ WordMasters is a puzzle game which motivates players to find hidden tech words. 
 
 Leaderboard has the top wordmasters ranked by the score. Try to become the first!!. Enjoy the game.
 
+### Screenshots
+
+- Start screen
+
+<img src="https://github.com/Hackbit/reactriot2019-codemasters/blob/master/media/wm-s1.png?raw=true">
+
+- Game screen
+
+<img src="https://github.com/Hackbit/reactriot2019-codemasters/blob/master/media/wm-s2.png?raw=true">
+
+- Leaderboard screen
+
+<img src="https://github.com/Hackbit/reactriot2019-codemasters/blob/master/media/wm-s3.png?raw=true">
+
+### Screencast
+
+https://www.youtube.com/watch?v=x1pBiVXJwCQ
+
 ### Development
 
 TODO: Add developer's guide
