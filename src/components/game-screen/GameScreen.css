@@ -9,3 +9,14 @@
     margin-left: -150px;
     margin-top: 24px;
 }
+
+.status-panel {
+    position: fixed;
+    width: 400px;
+    color: yellow;
+    top: 50%;
+    left: 50%;
+    margin-left: -200px;
+    margin-top: 0px;
+    text-align: center;
+}

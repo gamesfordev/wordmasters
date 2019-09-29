@@ -14,8 +14,32 @@ class GameScreen extends Component {
     super();
     this.state = {
       time: 0,
-      score: 0
+      score: 0,
+      intro: ''
     };
+  }
+
+  introLine1() {
+    this.setState({
+      intro: 'Each board has a hidden tech word'
+    });
+    setTimeout(() => {this.introLine2()}, 1200);
+  }
+
+  introLine2() {
+    this.setState({
+      intro: <span>Enter it or press <b>space</b> to skip</span>
+    });
+    setTimeout(() => {this.introLine3()}, 1200);
+  }
+
+  introLine3() {
+    this.setState({
+      intro: 'Get Ready!!'
+    });
+    setTimeout(() => {this.setState({
+      intro: ''
+    })}, 1200);
   }
 
   updateTime(time) {
@@ -32,6 +56,10 @@ class GameScreen extends Component {
     });
   }
 
+  componentDidMount() {
+    setTimeout(() => {this.introLine1()}, 1000);
+  }
+
   render() {
     return (
       <div className="GameScreen">
@@ -39,6 +67,7 @@ class GameScreen extends Component {
           <LeftPanel time={this.state.time}></LeftPanel>
           <RightPanel score={this.state.score}></RightPanel>
           <GameBoard updateTime={this.updateTime.bind(this)} updateScore={this.updateScore.bind(this)}></GameBoard>
+          <div className="status-panel">{this.state.intro}</div>
       </div>
     );
   }

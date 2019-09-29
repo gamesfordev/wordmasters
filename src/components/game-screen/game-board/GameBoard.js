@@ -28,8 +28,10 @@ class GameBoard extends Component {
     }
 
     componentDidMount() {
-        this.startGame();
-        window.onkeydown = this.handleKeyPress.bind(this);
+        setTimeout(() => {
+            this.startGame();
+            window.onkeydown = this.handleKeyPress.bind(this);
+        }, 4700)
     }
 
     componentWillUnmount() {
