@@ -4,7 +4,7 @@
 }
 
 .row-selected {
-    background-color: #242323 !important;
+    background-color: #c83c2f !important;
     font-weight: bold;
 }
 
@@ -17,5 +17,16 @@
     background-color: #343a40;
 }
 .leaderboard-table {
-	width: 65%;
+	width: 100%;
+}
+
+thead tr {
+  background-color: #2a1a17;
+}
+
+.t-wrapper {
+  height: 400px;
+  overflow-y: scroll;
+  display: inline-block;
+  width: 100%;
 }

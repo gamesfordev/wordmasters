@@ -76,7 +76,7 @@ class EndScreen extends Component {
               <span class="sr-only">Loading...</span>
             </div>
           </div>
-           : 
+           : <div className="t-wrapper">
              <table className='table table-dark text-centered mx-auto leaderboard-table'>
                 <thead>
                   <tr>
@@ -91,7 +91,7 @@ class EndScreen extends Component {
 
                       <tr className={ row.player.username === this.state.username ? 'row-selected' : ''} 
                           key={row.player.username}>
-                        <td>{index+1}</td>
+                        <td>#{index+1}</td>
                         <td>{row.player.username}</td>
                         <td>{row.player.score}</td>
                       </tr>
@@ -99,11 +99,13 @@ class EndScreen extends Component {
                   })}
                 </tbody>
               </table>
+              </div>
             }
             <br/>
       <div class="col text-center">
-        <Button onClick={this.playAgain.bind(this)} className="btn-space btn-lg">Play again</Button>
-         <Button variant="contained" color="primary" onClick={this.share.bind(this)} className="btn-lg btn-info btn-space ">
+        <br/>
+        <Button onClick={this.playAgain.bind(this)} className="btn-space btn-danger btn-lg">Play again</Button>
+         <Button variant="contained" color="primary" onClick={this.share.bind(this)} className="btn-lg btn-danger btn-space ">
                 Share
          </Button>
       </div>
