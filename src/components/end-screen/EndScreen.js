@@ -28,23 +28,23 @@ class EndScreen extends Component {
   }
 
   getUserData = () => {
-   this.loading = true;
-   
-    this.firebase
-      .database()
-      .ref('/players')
-      .once('value')
-      .then(snapshot => {
-        let playerList = snapshot.val();
-
-        if (playerList){
-          playerList.sort((a, b) => 
-            Object.values(b)[0].score - Object.values(b)[0].score);
-          this.loading = false;
-          this.setState({...this.state, players: playerList});
-        }
-      });
-  };
+    this.loading = true;
+    
+     this.firebase
+       .database()
+       .ref('/players')
+       .once('value')
+       .then(snapshot => {
+         let playerList = snapshot.val();
+         console.log(playerList);
+         
+         if (playerList){
+           playerList.sort((a, b) =>  b.player.score - a.player.score );
+           this.loading = false;
+           this.setState({...this.state, players: playerList});
+         }
+       });
+   };
 
   playAgain() {
     this.setState({

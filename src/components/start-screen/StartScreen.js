@@ -26,52 +26,62 @@ class StartScreen extends React.Component {
   };
 
   writeUserData = () => {
+    console.log('state', this.state);
+    
     this.firebase
       .database()
       .ref('/')
       .set(this.state);
-      console.log('writeUserData');
-      
+    console.log('write');
   };
 
   getUserData = () => {
     this.firebase
       .database()
-      .ref('/players')
+      .ref('/')
       .once('value')
       .then(snapshot => {
-        console.log(snapshot.val());
-        
-        if (snapshot.val()) this.setState({players:snapshot.val()});
+        console.log('getUserData', snapshot.val());
+        if (snapshot.val()) this.setState(snapshot.val());
+        console.log(this.state);
       });
   };
 
   handleSubmit = event => {
     event.preventDefault();
     let username = this.refs.username.value;
-    let userExist = false;
+
     if (username) {
-    this.state.players.some((player) =>{
-      if(Object.values(player)[0].username === username){
-        userExist = true;
-        return;
+      console.log('subit state',JSON.parse(JSON.stringify(this.state)));
+      let userExist = false;
+      if(this.state.players){
+        this.state.players.some(element =>{
+          console.log(element.player.username, username);
+          if(element.player.username === username){
+            userExist = true;
+          }
+      });
       }
-    });
+    console.log(userExist);
     
     if(!userExist){
       let players = this.state.players;
       players.push({ player: { score: 0, username } });
-      console.log('players',players);
-      
       this.setState({
         players
       });
+      
       this.writeUserData();
+      //   this.setState(...this.state, players);
+      //   this.setState({ player: { score: 0, username } });
     }
     localStorage.setItem('username', username);
-    this.props.history.push(`/game`);
-    this.refs.username.value = '';
+     this.props.history.push(`/game`);
+
+     this.refs.username.value = '';
     }
+   
+   
   };
 
   render() {
@@ -90,7 +100,7 @@ class StartScreen extends React.Component {
 									ref='username'
 									className='form-control'
                   placeholder='Username'
-                  autoFocus='true'
+                  autoFocus={true}
 								/>
 								</div>
 							</div>

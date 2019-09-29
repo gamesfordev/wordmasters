@@ -13,8 +13,8 @@ class GameBoard extends Component {
     items;
     currentWord = "";
     currentCorrectWord = "";
-    score = 0;
-    time = 120;
+    score = 10;
+    time = 15;
     running = true;
     firebase;
     
@@ -151,6 +151,8 @@ class GameBoard extends Component {
           .database()
           .ref(id)
           .set(playerObj);
+          console.log('update date');
+          
       };
     
       updateUserData = () => {
@@ -160,12 +162,18 @@ class GameBoard extends Component {
           .once('value')
           .then(snapshot => {
             let players = snapshot.val(); 
+            console.log(players);
+            
             if (players){
                 players.map((element, i) =>{
-                    if(Object.values(element)[0].username == localStorage.getItem('username')){
-                        let player = element;
-                        Object.values(element)[0].score = this.score;
-                        this.writeUserData(`/players/${i}/`, player)
+                    console.log('player',element.player.username);
+                    if(element.player.username== localStorage.getItem('username')){
+                        let player = element.player;
+                        if(this.score > player.score){
+                            player.score = this.score;
+                            this.writeUserData(`/players/${i}/`, {player})
+                        }
+                          
                     }
                 });
             }
