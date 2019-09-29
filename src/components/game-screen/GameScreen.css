@@ -3,11 +3,11 @@
 }
 
 .logo-game {
-    width: 300px;
+    width: 240px;
     position: fixed;
     left: 50%;
-    margin-left: -150px;
-    margin-top: 24px;
+    margin-left: -120px;
+    margin-top: 16px;
 }
 
 .status-panel {
