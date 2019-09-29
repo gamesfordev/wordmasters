@@ -53,6 +53,9 @@ a{
     margin-left: 10px;
 }
 
-input[type=text] {
+input[type=text], input[type=text]:focus {
     background-color: #e6ce40;
+    border: none;
+    outline: none !important;
+    box-shadow: none;
 }

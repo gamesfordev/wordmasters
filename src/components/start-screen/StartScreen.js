@@ -89,7 +89,8 @@ class StartScreen extends React.Component {
 									type='text'
 									ref='username'
 									className='form-control'
-									placeholder='Username'
+                  placeholder='Username'
+                  autoFocus='true'
 								/>
 								</div>
 							</div>
