@@ -82,12 +82,12 @@ class StartScreen extends React.Component {
       <div className='StartScreen center_div' >
         <div className="master">
 			<div className="login_box">
-			<img src={Logo} className="login_box logo"/>
+			<img src={Logo} className="logo"/>
 					<div className="name">
 						<form onSubmit={this.handleSubmit} className="loginForm">
 							<div className='form-group"'>
 								<div className='form-group'>
-								<label className="col-md-10 text-center">Enter Username</label>
+								<label className="col-md-10 text-center"></label>
 								<input
 									type='text'
 									ref='username'
@@ -97,8 +97,8 @@ class StartScreen extends React.Component {
 								</div>
 							</div>
 							<div className="col-md-12 text-center"> 
-								<button type='submit' className='btn btn-primary'>
-									Play
+								<button type='submit' className='btn btn-danger'>
+									Play Game!
 								</button>
 							</div> 
 						</form>
