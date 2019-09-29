@@ -28,7 +28,7 @@ class GameScreen extends Component {
 
   introLine2() {
     this.setState({
-      intro: <span>Enter it or press <b>space</b> to skip</span>
+      intro: <span>Type it or press <b>space</b> to skip</span>
     });
     setTimeout(() => {this.introLine3()}, 1200);
   }

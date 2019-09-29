@@ -36,48 +36,45 @@ class StartScreen extends React.Component {
       .database()
       .ref('/')
       .set(this.state);
-    console.log('write');
   };
 
   getUserData = () => {
     this.firebase
       .database()
-      .ref('/')
+      .ref('/players')
       .once('value')
       .then(snapshot => {
-        console.log('getUserData', snapshot.val());
-        if (snapshot.val()) this.setState(snapshot.val());
-        console.log(this.state);
+        if (snapshot.val()) this.setState({players:snapshot.val()});
       });
   };
 
   handleSubmit = event => {
     event.preventDefault();
     let username = this.refs.username.value;
-
+    let userExist;
     if (username) {
-      console.log(this.state);
+    this.state.players.some((player) =>{
+      if(Object.values(player)[0].username === username){
+        userExist = true;
+        return;
+      }
+    });
+    
+    if(!userExist){
       let players = this.state.players;
       players.push({ player: { score: 0, username } });
-      console.log(players);
 
       this.setState({
         players
       });
-      this.redirect = true;
-      localStorage.setItem('username', username);
-
-      //   this.setState(...this.state, players);
-      //   this.setState({ player: { score: 0, username } });
     }
-
+    localStorage.setItem('username', username);
+    this.props.history.push(`/game`);
     this.refs.username.value = '';
+    }
   };
 
   render() {
-    if (this.redirect) {
-      return <Redirect to={'/game/'} />;
-    }
     return (
       <div className='StartScreen center_div' >
         <div className="master">
