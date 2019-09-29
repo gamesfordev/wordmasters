@@ -17,6 +17,7 @@ class GameBoard extends Component {
     time = 120;
     running = true;
     firebase;
+    playerList=[]
     
 
     constructor() {
@@ -30,12 +31,23 @@ class GameBoard extends Component {
     componentDidMount() {
         setTimeout(() => {
             this.startGame();
+            this.getUserData();
             window.onkeydown = this.handleKeyPress.bind(this);
         }, 4700)
     }
 
     componentWillUnmount() {
         this.endGame();
+    }
+
+    getUserData(){
+        this.firebase
+        .database()
+        .ref('/players')
+        .once('value')
+        .then(snapshot => {
+            this.playerList = snapshot.val();
+        });
     }
 
     getRandomNumber(limit) {
@@ -151,36 +163,25 @@ class GameBoard extends Component {
           .database()
           .ref(id)
           .set(playerObj);
-          console.log('update date');
-          
       };
     
-      updateUserData = () => {
-        this.firebase
-          .database()
-          .ref('/players')
-          .once('value')
-          .then(snapshot => {
-            let players = snapshot.val(); 
-            
-            if (players){
-                players.map((element, i) =>{
-                    if(element.player.username== localStorage.getItem('username')){
-                        let player = element.player;
-                        if(this.score > player.score){
-                            player.score = this.score;
-                            this.writeUserData(`/players/${i}/`, {player})
-                        }
-                          
-                    }
-                });
-            }
-          });
+       updateUserData = () => {
+          if (this.playerList){
+            this.playerList.some((element, i) =>{
+                  if(element.player.username== localStorage.getItem('username')){
+                      let player = element.player;
+                      if(this.score > player.score){
+                          player.score = this.score;
+                          this.writeUserData(`/players/${i}/`, {player})
+                      }
+                  }
+              });
+          }
       };
 
     render() {
         if(!this.running) {
-            this.updateUserData();
+            this.updateUserData()
             return <Redirect to="/end"></Redirect>;
         }
         return <div className='game-box'> 

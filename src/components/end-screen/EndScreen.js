@@ -18,13 +18,13 @@ class EndScreen extends Component {
       page: 0,
       again: false,
       loading:false,
-      url:window.location.href
+      url:""
     };
   }
 
   componentDidMount() {
-    this.getUserData();
     this.setState({...this.state,url: window.location.href});
+    this.getUserData();
   }
 
   getUserData = () => {
