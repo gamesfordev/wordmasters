@@ -13,7 +13,7 @@ class GameBoard extends Component {
     items;
     currentWord = "";
     currentCorrectWord = "";
-    score = 10;
+    score = 0;
     time = 120;
     running = true;
     firebase;
