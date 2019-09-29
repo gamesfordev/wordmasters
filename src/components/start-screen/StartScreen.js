@@ -26,13 +26,11 @@ class StartScreen extends React.Component {
   };
 
   writeUserData = () => {
-    console.log('state', this.state);
     
     this.firebase
       .database()
       .ref('/')
       .set(this.state);
-    console.log('write');
   };
 
   getUserData = () => {
@@ -41,9 +39,7 @@ class StartScreen extends React.Component {
       .ref('/')
       .once('value')
       .then(snapshot => {
-        console.log('getUserData', snapshot.val());
         if (snapshot.val()) this.setState(snapshot.val());
-        console.log(this.state);
       });
   };
 
@@ -52,17 +48,14 @@ class StartScreen extends React.Component {
     let username = this.refs.username.value;
 
     if (username) {
-      console.log('subit state',JSON.parse(JSON.stringify(this.state)));
       let userExist = false;
       if(this.state.players){
         this.state.players.some(element =>{
-          console.log(element.player.username, username);
           if(element.player.username === username){
             userExist = true;
           }
       });
       }
-    console.log(userExist);
     
     if(!userExist){
       let players = this.state.players;
@@ -72,9 +65,7 @@ class StartScreen extends React.Component {
       });
       
       this.writeUserData();
-      //   this.setState(...this.state, players);
-      //   this.setState({ player: { score: 0, username } });
-    }
+         }
     localStorage.setItem('username', username);
      this.props.history.push(`/game`);
 

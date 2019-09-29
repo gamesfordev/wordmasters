@@ -18,7 +18,7 @@ class EndScreen extends Component {
       page: 0,
       again: false,
       loading:false,
-      url:""
+      url:window.location.href
     };
   }
 
@@ -36,7 +36,6 @@ class EndScreen extends Component {
        .once('value')
        .then(snapshot => {
          let playerList = snapshot.val();
-         console.log(playerList);
          
          if (playerList){
            playerList.sort((a, b) =>  b.player.score - a.player.score );

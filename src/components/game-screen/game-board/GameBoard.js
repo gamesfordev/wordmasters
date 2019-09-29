@@ -14,7 +14,7 @@ class GameBoard extends Component {
     currentWord = "";
     currentCorrectWord = "";
     score = 10;
-    time = 15;
+    time = 120;
     running = true;
     firebase;
     
@@ -162,11 +162,9 @@ class GameBoard extends Component {
           .once('value')
           .then(snapshot => {
             let players = snapshot.val(); 
-            console.log(players);
             
             if (players){
                 players.map((element, i) =>{
-                    console.log('player',element.player.username);
                     if(element.player.username== localStorage.getItem('username')){
                         let player = element.player;
                         if(this.score > player.score){
