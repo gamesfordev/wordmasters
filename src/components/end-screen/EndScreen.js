@@ -36,8 +36,10 @@ class EndScreen extends Component {
       .once('value')
       .then(snapshot => {
         let playerList = snapshot.val();
+
         if (playerList){
-          playerList.sort((a, b) =>  b.player.score - a.player.score );
+          playerList.sort((a, b) => 
+            Object.values(b)[0].score - Object.values(b)[0].score);
           this.loading = false;
           this.setState({...this.state, players: playerList});
         }
@@ -51,8 +53,6 @@ class EndScreen extends Component {
   }
 
   share() {
-    console.log(this.state.url);
-    
     window.open(
       `https://www.facebook.com/sharer/sharer.php?u=${this.state.url}`,
       'pop',
@@ -71,9 +71,9 @@ class EndScreen extends Component {
           <br/>    
         </div>
             { this.loading ? 
-          <div class="d-flex justify-content-center">
-            <div class="spinner-border" role="status">
-              <span class="sr-only">Loading...</span>
+          <div className="d-flex justify-content-center">
+            <div className="spinner-border" role="status">
+              <span className="sr-only">Loading...</span>
             </div>
           </div>
            : <div className="t-wrapper">
@@ -102,7 +102,7 @@ class EndScreen extends Component {
               </div>
             }
             <br/>
-      <div class="col text-center">
+      <div className="col text-center">
         <br/>
         <Button onClick={this.playAgain.bind(this)} className="btn-space btn-danger btn-lg">Play again</Button>
          <Button variant="contained" color="primary" onClick={this.share.bind(this)} className="btn-lg btn-danger btn-space ">

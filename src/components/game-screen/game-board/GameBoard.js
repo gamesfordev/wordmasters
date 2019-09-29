@@ -162,10 +162,10 @@ class GameBoard extends Component {
             let players = snapshot.val(); 
             if (players){
                 players.map((element, i) =>{
-                    if(element.player.username== localStorage.getItem('username')){
-                        let player = element.player;
-                        player.score = this.score;
-                        this.writeUserData(`/players/${i}/`, {player})
+                    if(Object.values(element)[0].username == localStorage.getItem('username')){
+                        let player = element;
+                        Object.values(element)[0].score = this.score;
+                        this.writeUserData(`/players/${i}/`, player)
                     }
                 });
             }
