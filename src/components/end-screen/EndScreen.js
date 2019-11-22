@@ -51,6 +51,10 @@ class EndScreen extends Component {
     });
   }
 
+  restart() {
+    this.props.history.push(`/`);
+  }
+
   share() {
     window.open(
       `https://www.facebook.com/sharer/sharer.php?u=${this.state.url}`,
@@ -104,6 +108,7 @@ class EndScreen extends Component {
       <div className="col text-center">
         <br/>
         <Button onClick={this.playAgain.bind(this)} className="btn-space btn-danger btn-lg">Play again</Button>
+        <Button onClick={this.restart.bind(this)} className="btn-space btn-danger btn-lg">Restart</Button>
          <Button variant="contained" color="primary" onClick={this.share.bind(this)} className="btn-lg btn-danger btn-space ">
                 Share
          </Button>
